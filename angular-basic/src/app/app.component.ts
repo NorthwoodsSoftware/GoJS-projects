@@ -7,7 +7,7 @@ import * as go from 'gojs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'My First GoJS App in Angular';
+  title = 'GoJS in Angular';
 
   model = new go.GraphLinksModel(
     [
