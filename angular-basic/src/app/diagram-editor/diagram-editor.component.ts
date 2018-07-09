@@ -30,6 +30,7 @@ export class DiagramEditorComponent implements OnInit {
     const $ = go.GraphObject.make;
     this.diagram = new go.Diagram();
     this.diagram.initialContentAlignment = go.Spot.Center;
+    this.diagram.allowDrop = true;
     this.diagram.undoManager.isEnabled = true;
     this.diagram.addDiagramListener("ChangedSelection",
         e => {

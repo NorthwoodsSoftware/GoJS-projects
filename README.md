@@ -4,7 +4,6 @@ This is the directory for GoJS projects. Each folder is a stand-alone project th
 
 [GoJS](https://gojs.net) is a JavaScript and HTML5 library for creating interactive diagrams, charts, and graphs.
 
-
 <h3>Support</h3>
 
 Northwoods Software offers a month of free developer-to-developer support for GoJS to help you get started on your project.

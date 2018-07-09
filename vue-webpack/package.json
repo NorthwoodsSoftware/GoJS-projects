@@ -1,10 +1,10 @@
 {
-  "name": "vue-webpack",
-  "description": "A GoJS project using vue.js and webpack",
-  "version": "1.0.0",
+  "name": "gojs-vue-webpack",
   "author": "Northwoods Software",
-  "license": "Copyright 2018",
-  "private": true,
+  "description": "A GoJS project using vue.js and webpack",
+  "version": "1.0.1",
+  "homepage": "https://gojs.net",
+  "license": "SEE LICENSE AT https://gojs.net/latest/doc/license.html",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --inline --progress",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
