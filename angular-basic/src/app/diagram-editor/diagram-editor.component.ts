@@ -1,6 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import * as go from 'gojs';
 
+// This requires us to include
+// "node_modules/gojs/extensionsTS/*"
+// in the "includes" list of this project's tsconfig.json
+import { GuidedDraggingTool } from 'gojs/extensionsTS/GuidedDraggingTool';
+
 @Component({
   selector: 'app-diagram-editor',
   templateUrl: './diagram-editor.component.html',
@@ -32,6 +37,7 @@ export class DiagramEditorComponent implements OnInit {
     this.diagram.initialContentAlignment = go.Spot.Center;
     this.diagram.allowDrop = true;
     this.diagram.undoManager.isEnabled = true;
+    this.diagram.toolManager.draggingTool = new GuidedDraggingTool();
     this.diagram.addDiagramListener("ChangedSelection",
         e => {
           const node = e.diagram.selection.first();

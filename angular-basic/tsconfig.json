@@ -15,5 +15,11 @@
       "es2017",
       "dom"
     ]
-  }
+  },
+  "include": [
+    "src/**/*",
+    // We use one of the extensions in \src\app\diagram-editor\diagram-editor.component.ts
+    // So we need to compile the extensions too
+    "node_modules/gojs/extensionsTS/*"
+  ]
 }
