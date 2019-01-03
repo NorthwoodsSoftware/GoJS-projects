@@ -1,6 +1,6 @@
 # GoJS Projects
 
-This is the directory for GoJS projects. Each folder is a stand-alone project that uses GoJS alongside another library or technology.
+This is the GitHub repository for GoJS projects. Each folder is a stand-alone project that uses GoJS alongside another library or technology.
 
 [GoJS](https://gojs.net) is a JavaScript and HTML5 library for creating interactive diagrams, charts, and graphs.
 

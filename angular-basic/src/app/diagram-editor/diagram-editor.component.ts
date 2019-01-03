@@ -33,6 +33,8 @@ export class DiagramEditorComponent implements OnInit {
 
   constructor() {
     const $ = go.GraphObject.make;
+    // Place GoJS license key here:
+    // (go as any).licenseKey = "..."
     this.diagram = new go.Diagram();
     this.diagram.initialContentAlignment = go.Spot.Center;
     this.diagram.allowDrop = true;
