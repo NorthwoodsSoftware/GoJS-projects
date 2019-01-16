@@ -4,6 +4,7 @@
   <title>Logic Circuit with shiftable ports</title>
   <!-- Copyright 1998-2018 by Northwoods Software Corporation. -->
   <meta charset="UTF-8">
+
   <script id="code">
     var red = "orangered";  // 0 or false
     var green = "forestgreen";  // 1 or true
@@ -12,7 +13,9 @@
 
     function init() {
       go = require("gojs");  // assumes: $ npm install gojs
+      require("gojs/extensions/Figures.js");  // required for the logic shapes
       var PortShiftingTool = require("./PortShiftingTool.js");  // requires module.exports assignment at end
+
 
       var $ = go.GraphObject.make;  // for conciseness in defining templates
 
@@ -35,7 +38,7 @@
         if (myDiagram.isModified) {
           if (idx < 0) document.title += "*";
         } else {
-          if (idx >= 0) document.title = document.title.substr(0, idx); 
+          if (idx >= 0) document.title = document.title.substr(0, idx);
         }
       });
 
