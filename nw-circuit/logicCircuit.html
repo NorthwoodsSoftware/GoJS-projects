@@ -5,7 +5,8 @@
   <!-- Copyright 1998-2018 by Northwoods Software Corporation. -->
   <meta charset="UTF-8">
   <script src="./node_modules/gojs/release/go.js"></script> <!-- assumes: $ npm install gojs -->
-  <script src="PortShiftingTool.js"></script>
+  <script src="./node_modules/gojs/extensions/Figures.js"></script>
+  <script src="./node_modules/gojs/extensions/PortShiftingTool.js"></script>
   <script id="code">
     var red = "orangered";  // 0 or false
     var green = "forestgreen";  // 1 or true
@@ -32,7 +33,7 @@
         if (myDiagram.isModified) {
           if (idx < 0) document.title += "*";
         } else {
-          if (idx >= 0) document.title = document.title.substr(0, idx); 
+          if (idx >= 0) document.title = document.title.substr(0, idx);
         }
       });
 
