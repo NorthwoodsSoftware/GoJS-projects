@@ -2,10 +2,9 @@ This demonstrates a GoJS diagram in an NW.js app.
 
 First, assuming you already have npm and git:
 ```
-$ npm install gojs
+$ npm install
 ```
-
-Second, install NW.js.
+Second, install NW.js: https://nwjs.io/
 
 Start app with:
 ```
