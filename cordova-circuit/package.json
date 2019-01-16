@@ -1,0 +1,13 @@
+{
+  "name": "gojs-cordova-circuit",
+  "author": "Northwoods Software",
+  "description": "A GoJS project using cordova and webpack",
+  "version": "1.0.0",
+  "license": "SEE LICENSE AT https://gojs.net/latest/doc/license.html",
+  "dependencies": {
+    "cordova": "^8.1.2",
+    "gojs": "^2.0.0",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1"
+  }
+}
