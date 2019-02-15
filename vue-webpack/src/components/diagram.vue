@@ -1,5 +1,5 @@
 <template>
-  <div id="myDiagramDiv" style="border: solid 1px black; width:400px; height:400px"></div>
+  <div style="border: solid 1px black; width:400px; height:400px"></div>
 </template>
 
 
@@ -15,7 +15,7 @@
     name: 'Diagram',
     mounted() {
       var diagram =
-        $(go.Diagram, "myDiagramDiv", {
+        $(go.Diagram, this.$el, {
           "undoManager.isEnabled": true,
           "grid.visible": true,
           "grid.gridCellSize": new go.Size(30, 30),
