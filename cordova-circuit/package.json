@@ -6,8 +6,14 @@
   "license": "SEE LICENSE AT https://gojs.net/latest/doc/license.html",
   "dependencies": {
     "cordova": "^8.1.2",
-    "gojs": "^2.0.0",
+    "cordova-browser": "^5.0.4",
+    "gojs": "^2.0.3",
     "webpack": "^4.28.4",
     "webpack-cli": "^3.2.1"
+  },
+  "cordova": {
+    "platforms": [
+      "browser"
+    ]
   }
 }
