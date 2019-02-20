@@ -6,6 +6,6 @@
   "author": "Northwoods Software (https://gojs.net)",
   "dependencies": {
     "electron-prebuilt": "^1.4.13",
-    "gojs": "^2.0.0"
+    "gojs": "^2.0.3"
   }
 }

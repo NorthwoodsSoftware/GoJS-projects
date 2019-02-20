@@ -7,6 +7,7 @@ $ npm install
 ```
 
 Start app with:
+
 ```
 $ node_modules/.bin/electron .
 ```
