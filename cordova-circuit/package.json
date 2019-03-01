@@ -7,7 +7,7 @@
   "dependencies": {
     "cordova": "^8.1.2",
     "cordova-browser": "^5.0.4",
-    "gojs": "^2.0.3",
+    "gojs": "^2.0.4",
     "webpack": "^4.28.4",
     "webpack-cli": "^3.2.1"
   },
