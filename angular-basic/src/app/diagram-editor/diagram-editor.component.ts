@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import * as go from 'gojs';
 
-// This requires us to include
-// "node_modules/gojs/extensionsTS/*"
-// in the "includes" list of this project's tsconfig.json
-import { GuidedDraggingTool } from 'gojs/extensionsTS/GuidedDraggingTool';
+import { GuidedDraggingTool } from './GuidedDraggingTool';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-diagram-editor',
@@ -31,7 +30,7 @@ export class DiagramEditorComponent implements OnInit {
   @Output()
   modelChanged = new EventEmitter<go.ChangedEvent>();
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
     const $ = go.GraphObject.make;
     // Place GoJS license key here:
     // (go as any).licenseKey = "..."
@@ -49,6 +48,9 @@ export class DiagramEditorComponent implements OnInit {
 
     this.diagram.nodeTemplate =
       $(go.Node, "Auto",
+        {
+          click: (e, node: go.Node) => { this.openDialog(node.data); }
+        },
         new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
         $(go.Shape,
           {
@@ -61,8 +63,8 @@ export class DiagramEditorComponent implements OnInit {
           },
           new go.Binding("fill", "color")),
         $(go.TextBlock,
-          { margin: 8, editable: true },
-          new go.Binding("text").makeTwoWay())
+          { margin: 8 /*, editable: true*/ },
+          new go.Binding("text")/*.makeTwoWay()*/)
       );
 
     this.diagram.linkTemplate =
@@ -90,5 +92,21 @@ export class DiagramEditorComponent implements OnInit {
   ngOnInit() {
     this.diagram.div = this.diagramRef.nativeElement;
     this.palette.div = this.paletteRef.nativeElement;
+  }
+
+  openDialog(data: any): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '250px',
+      data: { key: data.key, text: data.text, color: data.color }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.diagram.model.commit(function(m) {
+          m.set(data, "text", result.text);
+          m.set(data, "color", result.color);
+        }, "modified node properties");
+      }
+    });
   }
 }

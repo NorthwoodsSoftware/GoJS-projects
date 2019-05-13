@@ -1,25 +1,22 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
+    "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "importHelpers": true,
     "target": "es5",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2017",
+      "es2018",
       "dom"
     ]
-  },
-  "include": [
-    "src/**/*",
-    // We use one of the extensions in \src\app\diagram-editor\diagram-editor.component.ts
-    // So we need to compile the extensions too
-    "node_modules/gojs/extensionsTS/*"
-  ]
+  }
 }
