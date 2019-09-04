@@ -14,10 +14,10 @@ export class DiagramEditorComponent implements OnInit {
   private diagram: go.Diagram = new go.Diagram();
   private palette: go.Palette = new go.Palette();
 
-  @ViewChild('diagramDiv')
+  @ViewChild('diagramDiv', {static: true})
   private diagramRef: ElementRef;
 
-  @ViewChild('paletteDiv')
+  @ViewChild('paletteDiv', {static: true})
   private paletteRef: ElementRef;
 
   @Input()
