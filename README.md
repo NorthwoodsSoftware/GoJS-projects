@@ -2,9 +2,15 @@
 
 This is the GitHub repository for GoJS projects. Each folder is a stand-alone project that uses GoJS alongside another library or technology.
 
-[GoJS](https://gojs.net) is a JavaScript and HTML5 library for creating interactive diagrams, charts, and graphs.
+[GoJS](https://gojs.net) is a TypeScript and JavaScript library for creating interactive diagrams, charts, and graphs.
 
-<h3>Support</h3>
+## React and Angular Projects
+
+We maintain a React component: [gojs-react](https://github.com/NorthwoodsSoftware/gojs-react), and a React sample: [gojs-react-basic](https://github.com/NorthwoodsSoftware/gojs-react-basic)
+
+We also maintain an Angular sample: [gojs-angular-basic](https://github.com/NorthwoodsSoftware/gojs-angular-basic)
+
+## Support
 
 Northwoods Software offers a month of free developer-to-developer support for GoJS to help you get started on your project.
 
