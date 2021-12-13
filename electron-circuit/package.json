@@ -4,8 +4,11 @@
   "description": "A simple logic circuit diagram and emulator using GoJS for diagramming and editing",
   "main": "main.js",
   "author": "Northwoods Software (https://gojs.net)",
+  "scripts": {
+    "start": "electron ."
+  },
   "dependencies": {
-    "electron-prebuilt": "^1.4.13",
-    "gojs": "^2.0.4"
+    "electron": "^16.0.4",
+    "gojs": "^2.1.55"
   }
 }

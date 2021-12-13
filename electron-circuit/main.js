@@ -2,6 +2,7 @@ const electron = require('electron');
 const app = electron.app;  // Module to control application life.
 const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
 
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
@@ -19,7 +20,7 @@ app.on('window-all-closed', function () {
 // initialization and is ready to create browser windows.
 app.on('ready', function () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 1600, height: 900, webPreferences: { nodeIntegration: true } });
+  mainWindow = new BrowserWindow({ width: 1600, height: 900, webPreferences: { nodeIntegration: true, contextIsolation: false } });
 
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/logicCircuit.html');
