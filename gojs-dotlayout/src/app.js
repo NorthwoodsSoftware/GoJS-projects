@@ -14,10 +14,10 @@ export const init = async () => {
 
   const $ = go.GraphObject.make;
 
-  const myDiagram = $(go.Diagram, 'myDiagramDiv', // create a Diagram for the DIV HTML element
-    {
-      layout: new DotLayout(graphviz)  // defined in DotLayout.js
-    });
+  const myDiagram = $(go.Diagram, 'myDiagramDiv'); // create a Diagram for the DIV HTML element
+
+  const layout = new DotLayout(graphviz);  // defined in DotLayout.js
+  myDiagram.layout = layout;
 
   // a couple different sized node templates
   myDiagram.nodeTemplate =
@@ -43,7 +43,7 @@ export const init = async () => {
 
   const nodeArray = [];
   let i;
-  for (i = 0; i < 10000; i++) {
+  for (i = 0; i < 50; i++) {
     nodeArray.push({ key: `n${i}`, category: Math.random() < .33 ? "wide" : "" });
   }
 
