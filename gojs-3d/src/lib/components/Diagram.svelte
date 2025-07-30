@@ -1,13 +1,13 @@
 <script lang="ts">
   import go from 'gojs';
   import { onMount } from 'svelte';
-  import { browser } from '$app/environment';
+  import type { Axis } from '$lib/types';
 
   interface Props {
-    axis1?: 'X' | 'Y' | 'Z';
-    axis2?: 'X' | 'Y' | 'Z';
+    axis1?: Axis;
+    axis2?: Axis;
     model?: go.GraphLinksModel;
-    selection: go.Part | null;
+    selection: string | null;
   }
 
   let diagramDiv: HTMLDivElement;
@@ -15,14 +15,17 @@
 
   let { axis1 = 'X', axis2 = 'Y', model, selection = $bindable() }: Props = $props();
   onMount(() => {
-    go.Diagram.licenseKey =
-      '2b8644e0b7634dc702d90676423d6bbc5cf07e34cf960ef6580013f4bf586944779be17805db8ad2c2ff46ac1a7d938a8f913c29904c0133e53481d546e6d5feb33323b5440a44dda21136c5ccaa2ca1ae2870e0d2b676a1de678dedef';
+    // go.Diagram.licenseKey = ...
 
     const coordToAxis = {
       X: 0,
       Y: 1,
       Z: 2
     };
+
+    // take all the axes and filter out axis1 and axis2 to get the remaining axis
+    // for zOrder in the diagram
+    const zOrderAxis = ['X', 'Y', 'Z'].filter((v) => v != axis1 && v != axis2)[0] as Axis;
 
     const node = new go.Node({ resizable: true, resizeObjectName: 'SHAPE' })
       .bindTwoWay(
@@ -31,17 +34,26 @@
         (loc, d) => {
           const p = new go.Point(
             loc[coordToAxis[axis1]] - (axis1 === 'Z' ? d.data.size[2] : 0),
-            loc[coordToAxis[axis2]] - (axis2 === 'Z' ? d.data.size[2] : 0)
+            loc[coordToAxis[axis2]]
           );
           return p;
         },
         (loc: go.Point, data) => {
           const newLoc = [...data.loc];
           newLoc[coordToAxis[axis1]] = loc.x + (axis1 === 'Z' ? data.size[2] : 0);
-          newLoc[coordToAxis[axis2]] = loc.y + (axis2 === 'Z' ? data.size[2] : 0);
+          newLoc[coordToAxis[axis2]] = loc.y;
           return newLoc;
         }
       )
+      .bind('zOrder', '', (data, obj) => {
+        // zOrder the Nodes by depth axis from 3d view
+        const i = coordToAxis[zOrderAxis];
+        const pos = data.loc[i] * (zOrderAxis === 'Z' ? -1 : 1); // z axis inverted
+        if (zOrderAxis === 'Z') return pos; // z pos is relative to the top
+
+        const size = obj.data.size[i];
+        return pos + size;
+      })
       .add(
         new go.Shape({ name: 'SHAPE' })
           .bindTwoWay(
@@ -62,17 +74,24 @@
 
     myDiagram = new go.Diagram(diagramDiv, {
       ChangedSelection: (e) => {
-        selection = e.subject.first();
+        selection = e.subject.first()?.key ?? null;
       },
       'animationManager.isEnabled': false,
-      'undoManager.isEnabled': false,
+      'undoManager.isEnabled': true,
       'layout.isInitial': false,
       'layout.isOngoing': false,
       nodeTemplate: node
     });
 
+    const gridColor = {
+      XY: 'oklch(0.962 0.044 156.743)',
+      YZ: 'oklch(0.932 0.032 255.585)',
+      XZ: 'oklch(0.936 0.032 17.717)'
+    }[`${axis1}${axis2}` as 'XY' | 'YZ' | 'XZ'];
+    diagramDiv.style.background = gridColor;
+
     myDiagram.grid = new go.Panel('Grid', {
-      gridCellSize: new go.Size(10, 10),
+      gridCellSize: new go.Size(30, 30),
       visible: true
     }).add(
       new go.Shape('LineH', { stroke: 'lightgray' }),
@@ -82,7 +101,9 @@
     $effect(() => {
       if (model) myDiagram.model = model;
       if (selection) {
-        myDiagram.select(myDiagram.findNodeForKey(selection.key));
+        myDiagram.select(myDiagram.findNodeForKey(selection));
+      } else {
+        myDiagram.clearSelection();
       }
     });
   });

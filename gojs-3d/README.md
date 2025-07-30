@@ -23,6 +23,6 @@ model and passes it to children components. Those components bind the model and 
 variable, to pass upwards to update the state of other diagrams and the UI. A simple node
 information component is included to show details about a selected object.
 
-## [Project source code](https://github.com/NorthwoodsSoftware/GoJS/tree/master/projects)
+## [Project source code](https://github.com/NorthwoodsSoftware/gojs-projects)
 
 ## [See more GoJS Samples](https://gojs.net/latest/samples/)

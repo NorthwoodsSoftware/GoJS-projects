@@ -5,3 +5,5 @@ export interface NodeData {
   color: string;
   key: string;
 }
+
+export type Axis = 'X' | 'Y' | 'Z';
