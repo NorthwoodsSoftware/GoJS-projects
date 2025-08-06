@@ -19,7 +19,7 @@
 
   let { openModal = $bindable(), onClose }: Props = $props();
 
-  let openSubModal: Function;
+  // let openSubModal: Function;
   let bodyDiv: HTMLDivElement;
 
   let JSONPathDiv: HTMLDivElement;
@@ -99,7 +99,7 @@
 
 <Modal
   ID="objectEditor"
-  bind:openModal={openSubModal}
+  bind:openModal
   onClose={() => {
     onClose(object);
   }}

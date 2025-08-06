@@ -35,14 +35,13 @@
 
   const fnameMap: go.ObjectData = {
     '64KB min': 1,
-    '256KB min': 2,
     '1MB min': 3,
     '5MB min': 4
   };
 
   const dataButtons: Promise<{ content: string; action: Function }[]> = Promise.all(
     Object.entries(files).map(async ([path, importer]) => {
-      const url = await importer() as string;
+      const url = (await importer()) as string;
       const fname = path.split('/').at(-1)?.split('.')?.[0]?.replaceAll('-', ' ');
       return {
         content: fname ?? 'unkown',
