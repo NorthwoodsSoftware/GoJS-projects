@@ -1,0 +1,38 @@
+{
+  "fruits": [
+    {
+      "name": "Apple",
+      "species": [1,2,3,"", null],
+      "color": "Red",
+      "nutrients": {
+        "calories": 52,
+        "fiber": "2.4g",
+        "vitaminC": "4.6mg"
+      }
+    },
+    {
+      "name": "Banana",
+      "color": "Yellow",
+      "isYellow": true,
+      "nutrients": {
+        "calories": 89,
+        "fiber": "2.6g",
+        "potassium": "358mg"
+      },
+      "nutrients2": {
+        "calories": 89,
+        "fiber": "2.6g",
+        "potassium": "358mg"
+      }
+    },
+    {
+      "name": "Orange",
+      "color": "Orange",
+      "nutrients": {
+        "calories": 47,
+        "fiber": "2.4g",
+        "vitaminC": "53.2mg"
+      }
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+@import 'tailwindcss';
+
+/* set dark theme by dark class on document body */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --ui-error: #f87171;
+  --ui-warning: var(--color-amber-200);
+
+  --ui-primary: var(--color-slate-100);
+  --ui-secondary: var(--color-slate-300);
+  --ui-tertiary: var(--color-slate-200);
+  --ui-quaternary: var(--color-slate-400);
+
+  --ui2-primary: var(--color-stone-300);
+  --ui2-secondary: var(--color-stone-400);
+
+  --ui-text: var(--color-black);
+  color: var(--ui-text);
+
+  --ui-radius: 0.5rem;
+  --ui-button-bg: rgba(0, 0, 0, 0.055);
+
+  --type-string: #c6694f;
+  --type-array: #67beae;
+  --type-object: #8ba226;
+  --type-number: #67beae;
+  --type-null: #322c30;
+  --type-boolean: #93251d;
+}
+
+.dark {
+  --ui-warning: var(--color-yellow-400);
+
+  --ui-primary: var(--color-slate-800);
+  --ui-secondary: var(--color-slate-600);
+  --ui-tertiary: var(--color-slate-700);
+  --ui-quaternary: var(--color-slate-500);
+
+  --ui2-primary: var(--color-stone-600);
+  --ui2-secondary: var(--color-stone-500);
+
+  --ui-text: var(--color-white);
+  color: var(--ui-text);
+  --ui-button-bg: rgba(255, 255, 255, 0.12);
+
+  --type-string: #f2994a;
+  --type-array: #26b5ce;
+  --type-object: #cddb44;
+  --type-number: #45a575;
+  --type-null: #5e68d0;
+  --type-boolean: #c76034;
+}
+
+@theme inline {
+  --color-fp-green: #6cc35b;
+  --color-fp-beige: #fbfcf9;
+
+  --color-ui-primary: var(--ui-primary);
+  --color-ui-secondary: var(--ui-secondary);
+  --color-ui-tertiary: var(--ui-tertiary);
+  --color-ui-quaternary: var(--ui-quaternary);
+
+  --color-ui-text: var(--uiText);
+  --color-ui-button-bg: var(--ui-button-bg);
+
+  --color-ui2-primary: var(--ui2-primary);
+  --color-ui2-secondary: var(--ui2-secondary);
+
+  --color-type-string: var(--type-string);
+  --color-type-array: var(--type-array);
+  --color-type-object: var(--type-object);
+  --color-type-number: var(--type-number);
+  --color-type-null: var(--type-null);
+  --color-type-boolean: var(--type-boolean);
+}
+
+/*
+  style the chrome scrollbar
+*/
+
+/* Width of the scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+/* Track (background) */
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+/* Handle (thumb) */
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+}
+
+/* Hover effect */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+  }
+
+  a {
+    @apply text-green-700 underline;
+  }
+  a:hover {
+    @apply text-green-900;
+  }
+  .dark a, a:has(code) {
+    @apply text-green-400 underline;
+  }
+  .dark a:hover, a:has(code):hover {
+    @apply text-green-200;
+  }
+
+  P {
+    @apply mb-1;
+  }
+
+  ul {
+    @apply mb-4 ml-2 list-inside list-[square];
+  }
+
+  ol {
+    @apply mb-4 ml-2 list-inside list-decimal;
+  }
+
+  ol li::marker,
+  ul li::marker {
+    @apply text-fp-green;
+  }
+
+  code {
+    @apply bg-zinc-200 rounded-sm p-1 inline-flex flex-row gap-3 justify-center place-content-center;
+  }
+  .dark code {
+    @apply bg-zinc-700;
+  }
+  /* code:not(:where(a *)) {
+    @apply text-white;
+  } */
+}
