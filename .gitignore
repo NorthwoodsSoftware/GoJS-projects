@@ -3,3 +3,5 @@ node_modules
 electron-circuit/package-lock.json
 cordova-circuit/platforms
 cordova-circuit/www/js/bundle.js
+/gojs-seatingchart/.vscode
+/gojs-seatingchart/.vite
