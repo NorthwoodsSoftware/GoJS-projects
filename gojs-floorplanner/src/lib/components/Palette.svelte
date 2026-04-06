@@ -1,29 +1,26 @@
-<!--
-  This component is intended to work without knowledge of the Floorplan class
--->
 <script lang="ts">
+  // Palette component that manages the furniture pallette and its model
   import { browser } from '$app/environment';
-  import { nodeTemplateMap } from '$lib/gojs/templates/Nodes';
-  import { TemplateColors, TemplateGeometries } from '$lib/gojs/templates/Shared';
-  let {} = $props();
+  import { paletteNodeTemplateMap } from '$lib/gojs/FurnitureTemplates';
   import go from 'gojs';
   import { onMount } from 'svelte';
   let myPalette;
-  let diagramDiv: HTMLDivElement;
+  let diagramDiv: HTMLDivElement | undefined = $state();
 
   const paletteModel = [
     {
-      key: 'generic',
+      // key: 'generic',
+      key: 'pal1',
       caption: 'Generic Object',
       type: 'Round Table',
       shape: 'Rectangle',
-      color: TemplateColors.furn3,
       width: 64,
       height: 64,
       notes: ''
     },
     {
-      key: 'roundTable',
+      // key: 'roundTable',
+      key: 'pal2',
       caption: 'Round Table',
       type: 'Round Table',
       shape: 'Ellipse',
@@ -32,105 +29,126 @@
       notes: ''
     },
     {
-      key: 'armChair',
+      // key: 'armChair',
+      key: 'pal3',
       caption: 'Arm Chair',
       type: 'Arm Chair',
-      geo: TemplateGeometries.armChair,
+      geoType: 'armChair',
       width: 45,
       height: 45,
       notes: ''
     },
     {
-      key: 'sofaMedium',
+      // key: 'sofaMedium',
+      key: 'pal4',
       caption: 'Sofa',
       type: 'Sofa',
-      geo: TemplateGeometries.sofaMedium,
+      geoType: 'sofaMedium',
       height: 45,
       width: 90,
       notes: ''
     },
     {
-      key: 'sink',
+      // key: 'sink',
+      key: 'pal5',
       caption: 'Sink',
       type: 'Sink',
-      geo: TemplateGeometries.sink,
+      geoType: 'sink',
       width: 27,
       height: 27,
       notes: ''
     },
     {
-      key: 'doubleSink',
+      // key: 'doubleSink',
+      key: 'pal6',
       caption: 'Double Sink',
       type: 'Double Sink',
-      geo: TemplateGeometries.doubleSink,
-      height: 27,
-      width: 52,
+      geoType: 'doubleSink',
+      height: 25,
+      width: 45,
       notes: ''
     },
     {
-      key: 'toilet',
+      // key: 'toilet',
+      key: 'pal7',
       caption: 'Toilet',
       type: 'Toilet',
-      geo: TemplateGeometries.toilet,
+      geoType: 'toilet',
       width: 25,
       height: 35,
       notes: ''
     },
     {
-      key: 'shower',
+      // key: 'shower',
+      key: 'pal8',
       caption: 'Shower/Tub',
       type: 'Shower/Tub',
-      geo: TemplateGeometries.shower,
+      geoType: 'shower',
       width: 45,
       height: 75,
       notes: ''
     },
     {
-      key: 'bed',
+      // key: 'bed',
+      key: 'pal9',
       caption: 'Bed',
       type: 'Bed',
-      geo: TemplateGeometries.bed,
+      geoType: 'bed',
       width: 76.2,
       height: 101.6,
       notes: ''
     },
     {
-      key: 'stove',
+      // key: 'stove',
+      key: 'pal10',
       caption: 'Stove',
       type: 'Stove',
-      geo: TemplateGeometries.stove,
-      width: 75,
-      height: 75,
+      geoType: 'stove',
+      width: 50,
+      height: 50,
       notes: ''
     },
     {
-      key: 'diningTable',
+      // key: 'diningTable',
+      key: 'pal11',
       caption: 'Dining Table',
       type: 'Dining Table',
-      geo: TemplateGeometries.diningTable,
+      geoType: 'diningTable',
       width: 125,
       height: 62.5,
+      notes: ''
+    },
+    {
+      // key: 'stairs',
+      key: 'pal12',
+      caption: 'Stairs',
+      type: 'Stairs',
+      geoType: 'stairs',
+      width: 60,
+      height: 120,
       notes: ''
     }
   ];
 
   onMount(() => {
-    go.Diagram.licenseKey =
-      '2b8644e0b7634dc702d90676423d6bbc5cf07e34cf960ef6580013f4bf586944779be17805db8ad2c2ff46ac1a7d938a8f913c29904c0133e53481d546e6d5feb33323b5440a44dda21136c5ccaa2ca1ae2870e0d2b676a1de678dedef';
+    // go.Diagram.licenseKey = ...
     myPalette = new go.Palette(diagramDiv, {
-      // 'animationManager.isInitial': false
+      'animationManager.isEnabled': false,
       scale: 0.65,
-      nodeTemplateMap: nodeTemplateMap,
-      model: new go.GraphLinksModel(paletteModel)
+      nodeTemplateMap: paletteNodeTemplateMap,
+      model: new go.GraphLinksModel(paletteModel),
+      layout: new go.GridLayout({
+        wrappingColumn: 2,
+        spacing: new go.Size(10, 20)
+      })
     });
     // attached only for debug and demonstration:
     if (browser) (window as any).myPalette = myPalette;
   });
 </script>
 
-<div class="flex h-full flex-col">
-  <div class="border-b border-[#6cc35b] px-1 font-mono text-xs">Furniture Palette</div>
-  <div class="w-full flex-1 flex-grow p-[1px]">
-    <div class="h-full w-full" bind:this={diagramDiv}></div>
+<div class="h-full overflow-hidden">
+  <div class="h-full w-full rounded border px-1 py-4">
+    <div class="bg-fp-beige h-full w-full" bind:this={diagramDiv}></div>
   </div>
 </div>

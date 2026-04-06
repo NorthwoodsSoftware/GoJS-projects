@@ -1,18 +1,62 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import 'tailwindcss';
+
+/* set dark theme by dark class on document body */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-fp-green: #6cc35b;
+  --color-fp-beige: #fbfcf9;
+  --color-fp-bg: #fbfcf9;
+  --color-fp-bg-lightish: #2a4861;
+  --color-fp-bg-dark: #0f172a;
+  --color-fp-bg-darkened: #020617;
+  --color-fp-bg-darkish: #42557a;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+
+  .dark {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+      border-color: var(--color-gray-700, currentColor);
+    }
+  }
+}
 
 @layer base {
   html,
   body {
     height: 100%;
+    @apply bg-fp-bg-lightish dark:bg-fp-bg-darkened
   }
 
   a {
-    @apply text-fp-green underline;
+    @apply text-sky-300 underline;
   }
   a:hover {
-    @apply text-green-900;
+    @apply text-sky-500;
+  }
+
+  P {
+    @apply mb-1;
   }
 
   ul {
@@ -26,5 +70,44 @@
   ol li::marker,
   ul li::marker {
     @apply text-fp-green;
+  }
+}
+
+/* Scroll bar customization */
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f3f4f6;
+  }
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: white;
+  border: 1px solid #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    border: 1.5px solid skyblue;
+}
+
+.dark {
+  ::-webkit-scrollbar-track {
+    @apply bg-fp-bg-dark
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-fp-bg-darkish;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    border: 1.5px solid var(--color-fp-bg-darkish);
   }
 }

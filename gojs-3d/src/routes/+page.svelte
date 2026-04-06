@@ -2,7 +2,8 @@
   import DiagramSet from '$lib/components/DiagramSet.svelte';
   import NodeInfo from '$lib/components/NodeInfo.svelte';
 
-  let selection: go.Part | null = null;
+  let selection: string | null = null;
+  let model: go.GraphLinksModel;
 </script>
 
 <div class="bg-fp-beige mx-3 flex h-full flex-col">
@@ -10,16 +11,16 @@
 
   <div class="flex h-full flex-col items-stretch">
     <!-- top -->
-    <div class="flex flex-grow flex-row items-stretch">
-      <div class="w-32 bg-blue-300 md:w-48 lg:w-64">
-        <NodeInfo {selection} />
+    <div class="flex grow flex-row items-stretch gap-1">
+      <div class="w-32 bg-blue-200 md:w-48 lg:w-64">
+        <NodeInfo {selection} {model}/>
       </div>
-      <div class="flex-grow">
-        <DiagramSet bind:selection></DiagramSet>
+      <div class="grow">
+        <DiagramSet bind:selection bind:model></DiagramSet>
       </div>
     </div>
     <!-- footer -->
-    <div class="h-1/4 bg-blue-100 p-3">
+    <div class="h-1/4 bg-blue-100 p-3 mt-1">
       <p>This sample demonstrates GoJS Diagrams alongside a 3D model made with ThreeJS.</p>
       <p>
         Three separate GoJS Diagrams observe a single model, each showing two of three coordinate
@@ -38,7 +39,7 @@
         information component is included to show details about a selected object.
       </p>
       <p>
-        <a target="_blank" href="https://github.com/NorthwoodsSoftware/GoJS/tree/master/projects"
+        <a target="_blank" href="https://github.com/NorthwoodsSoftware/gojs-projects"
           >The GoJS-3D project source code can be found here.</a
         >
       </p>

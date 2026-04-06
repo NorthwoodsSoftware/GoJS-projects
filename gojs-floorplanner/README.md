@@ -2,14 +2,7 @@
 
 ### By Northwoods Software for [GoJS](https://gojs.net)
 
-This project provides a basic example of using GoJS to create a floor planner in a Svelte app.
-
-## Installation
-
-Start by running `npm install` to install all necessary dependencies.
-`npm run dev` runs the app in the development mode.
-
-## GoJS in Svelte Components
+## GoJS Floorplanner with Svelte
 
 This GoJS Floorplanner sample demonstrates the <a
     href="https://gojs.net/latest/index.html"
@@ -41,8 +34,11 @@ and a demonstration of GoJS alongside Svelte, rather than a starting point for y
 project. We are happy to help you begin a proof-of-concept for your own project, regardless of
 your needs. <a href="https://nwoods.com/support.html" target="_blank">Contact us</a> for more information.
 
-<a href="https://gojs.net/latest/samples/">See all GoJS samples</a>
+## Installation
 
-## [Project source code](https://github.com/NorthwoodsSoftware/GoJS/tree/master/projects)
+Start by running `npm install` to install all necessary dependencies.
+`npm run dev` runs the app in the development mode.
+
+## [Project source code](https://github.com/NorthwoodsSoftware/gojs-projects)
 
 ## [See more GoJS Samples](https://gojs.net/latest/samples/)

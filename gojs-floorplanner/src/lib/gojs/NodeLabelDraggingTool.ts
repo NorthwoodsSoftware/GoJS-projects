@@ -1,0 +1,183 @@
+/*
+ *  Copyright 1998-2025 by Northwoods Software Corporation. All Rights Reserved.
+ */
+
+/*
+ * This is an extension and not part of the main GoJS library.
+ * The source code for this is at extensionsJSM/NodeLabelDraggingTool.ts.
+ * Note that the API for this class may change with any version, even point releases.
+ * If you intend to use an extension in production, you should copy the code to your own source directory.
+ * Extensions can be found in the GoJS kit under the extensions or extensionsJSM folders.
+ * See the Extensions intro page (https://gojs.net/latest/intro/extensions.html) for more information.
+ */
+
+import * as go from 'gojs';
+
+/**
+ * The NodeLabelDraggingTool class lets the user move a label on a Node.
+ *
+ * This tool only works when the Node has a label (any GraphObject) marked with
+ * `{ _isNodeLabel: true }` that is positioned in a Spot Panel.
+ * It works by modifying that label's {@link go.GraphObject.alignment} property to have an
+ * offset from the center of the panel.
+ *
+ * If you want to experiment with this extension, try the <a href="../../samples/NodeLabelDragging.html">Node Label Dragging</a> sample.
+ * @category Tool Extension
+ */
+
+// This is a customized version of the Node Label Dragging Tool extension that keeps that label within the bounds of the room
+export class NodeLabelDraggingTool extends go.Tool {
+  /**
+   * The label being dragged.
+   */
+  label: go.GraphObject | null;
+  node: go.Node | null;
+  private _offset: go.Point; // of the mouse relative to the center of the label object
+  private _originalAlignment: go.Spot;
+  private _originalCenter: go.Point;
+
+  /**
+   * Constructs a NodeLabelDraggingTool and sets the name for the tool.
+   */
+  constructor(init?: Partial<NodeLabelDraggingTool>) {
+    super();
+    this.name = 'NodeLabelDragging';
+    this.label = null;
+    this.node = null;
+    this._offset = new go.Point();
+    this._originalAlignment = go.Spot.Default;
+    this._originalCenter = new go.Point();
+    if (init) Object.assign(this, init);
+  }
+
+  /**
+   * From the GraphObject at the mouse point, search up the visual tree until we get to
+   * an object that has the "_isNodeLabel" property set to true, that is in a Spot Panel,
+   * and that is not the first element of that Panel (i.e. not the main element of the panel).
+   * @returns This returns null if no such label is at the mouse down point.
+   */
+  findLabel(): go.GraphObject | null {
+    const diagram = this.diagram;
+    const e = diagram.firstInput;
+    let elt = diagram.findObjectAt(e.documentPoint, null, null);
+
+    if (elt === null || !(elt.part instanceof go.Node)) return null;
+    this.node = elt.part;
+    while (elt.panel !== null) {
+      if ((elt as any)['_isNodeLabel'] &&
+          elt.panel.type === go.Panel.Spot &&
+          elt.panel.findMainElement() !== elt) return elt;
+      elt = elt.panel;
+    }
+    return null;
+  }
+
+  /**
+   * This tool can only start if the mouse has moved enough so that it is not a click,
+   * and if the mouse down point is on a GraphObject "label" in a Spot Panel,
+   * as determined by findLabel().
+   */
+  override canStart(): boolean {
+    if (!super.canStart()) return false;
+    const diagram = this.diagram;
+    // require left button & that it has moved far enough away from the mouse down point, so it isn't a click
+    const e = diagram.lastInput;
+    if (!e.left) return false;
+    if (!this.isBeyondDragSize()) return false;
+
+    return this.findLabel() !== null;
+  }
+
+  /**
+   * Start a transaction, call {@link findLabel} and remember it as the "label" property,
+   * and remember the original value for the label's {@link go.GraphObject.alignment} property.
+   */
+  override doActivate(): void {
+    this.startTransaction('Shifted Label');
+    this.label = this.findLabel();
+    if (this.label !== null) {
+      // compute the offset of the mouse-down point relative to the center of the label
+      this._offset = this.diagram.firstInput.documentPoint
+        .copy()
+        .subtract(this.label.getDocumentPoint(go.Spot.Center));
+      this._originalAlignment = this.label.alignment.copy();
+      const panel = this.label.panel;
+      if (panel !== null) {
+        const main = panel.findMainElement();
+        if (main !== null) this._originalCenter = main.getDocumentPoint(go.Spot.Center);
+      }
+    }
+    super.doActivate();
+  }
+
+  /**
+   * Stop any ongoing transaction.
+   */
+  override doDeactivate(): void {
+    super.doDeactivate();
+    this.stopTransaction();
+  }
+
+  /**
+   * Clear any reference to a label element.
+   */
+  override doStop(): void {
+    this.label = null;
+    super.doStop();
+  }
+
+  /**
+   * Restore the label's original value for GraphObject.alignment.
+   */
+  override doCancel(): void {
+    if (this.label !== null) {
+      this.label.alignment = this._originalAlignment;
+    }
+    super.doCancel();
+  }
+
+  /**
+   * During the drag, call updateAlignment in order to set the {@link go.GraphObject.alignment} of the label.
+   */
+  override doMouseMove(): void {
+    if (!this.isActive) return;
+    this.updateAlignment();
+  }
+
+  /**
+   * At the end of the drag, update the alignment of the label and finish the tool,
+   * completing a transaction.
+   */
+  override doMouseUp(): void {
+    if (!this.isActive) return;
+    this.updateAlignment();
+    this.transactionResult = 'Shifted Label';
+    this.stopTool();
+  }
+
+  /**
+   * Save the label's {@link go.GraphObject.alignment} as an absolute offset from the center of the Spot Panel
+   * that the label is in.
+   */
+  updateAlignment(): void {
+    if (this.label === null) return;
+    if (!this.node) return;
+    const last = this.diagram.lastInput.documentPoint;
+    const cntr = this._originalCenter;
+    // Get label and room bounds
+    const nodeBounds = this.node.getDocumentBounds();
+    const labelBounds = this.label.getDocumentBounds();
+    // Find min and max coordinates that keep the entire label within the room's bounds
+    const minx = nodeBounds.left - nodeBounds.centerX + labelBounds.width / 2;
+    const maxx = nodeBounds.right - nodeBounds.centerX - labelBounds.width / 2;
+    const miny = nodeBounds.top - nodeBounds.centerY + labelBounds.height / 2;
+    const maxy = nodeBounds.bottom - nodeBounds.centerY - labelBounds.height / 2;
+    // Set label alignment, limit offset by these bounds
+    this.label.alignment = new go.Spot(
+      0.5,
+      0.5,
+      Math.max(Math.min(last.x - this._offset.x - cntr.x, maxx), minx),
+      Math.max(Math.min(last.y - this._offset.y - cntr.y, maxy), miny)
+    );
+  }
+}

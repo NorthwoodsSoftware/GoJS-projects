@@ -1,7 +1,14 @@
 <script lang="ts">
   import '../app.css';
+  import '@fontsource-variable/jetbrains-mono';
   let { children } = $props();
 </script>
+
+<style>
+  :global(body) {
+    font-family: "JetBrains Mono Variable", monospace
+  }
+</style>
 
 <!-- Northwoods google analytics - You can delete this block! -->
 <svelte:head>
