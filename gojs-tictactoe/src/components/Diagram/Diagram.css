@@ -1,0 +1,3 @@
+.diagram-component {
+  @apply grow border-t border-[var(--color-ui-primary)] bg-[var(--color-ui-secondary)];
+}

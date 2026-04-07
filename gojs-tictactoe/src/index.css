@@ -1,0 +1,117 @@
+@import 'tailwindcss';
+
+/* Tailwind dark mode based on dark class */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* tailwind light theme colors */
+  --ui-text: var(--color-zinc-950);
+  --ui-primary: var(--color-zinc-200);
+  --ui-secondary: var(--color-zinc-100);
+  --ui-tertiary: var(--color-indigo-500);
+
+  --board-text: var(--color-zinc-50);
+  --board-primary: var(--color-zinc-800);
+  --board-secondary: var(--color-indigo-400);
+  --board-p1: var(--color-cyan-500);
+  --board-p2: var(--color-rose-700);
+
+  --link-color: var(--color-indigo-600);
+
+  /* page css */
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: var(--ui-text);
+  background-color: var(--ui-primary);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dark {
+  /* tailwind dark theme colors */
+  --ui-text: var(--color-zinc-50);
+  --ui-primary: var(--color-zinc-900);
+  --ui-secondary: var(--color-zinc-800);
+  --ui-tertiary: var(--color-indigo-400);
+
+  --board-text: var(--color-zinc-950);
+  --board-primary: var(--color-zinc-100);
+  --board-secondary: var(--color-indigo-500);
+  --board-p1: var(--color-cyan-600);
+  --board-p2: var(--color-rose-800);
+
+  --link-color: var(--color-indigo-300);
+}
+
+/* define tailwind color variables */
+@theme inline {
+  --color-ui-text: var(--ui-text);
+  --color-ui-primary: var(--ui-primary);
+  --color-ui-secondary: var(--ui-secondary);
+  --color-ui-tertiary: var(--ui-tertiary);
+
+  --color-board-text: var(--board-text);
+  --color-board-primary: var(--board-primary);
+  --color-board-secondary: var(--board-secondary);
+  --color-board-p1: var(--board-p1);
+  --color-board-p2: var(--board-p2);
+
+  --color-link-color: var(--link-color);
+}
+
+body {
+  @apply m-0 flex min-h-[100vh] place-items-center;
+}
+
+/*
+  default css for these elements. Allows these props to be easily overridden
+ */
+@layer base {
+  a {
+    @apply text-link-color underline;
+  }
+
+  a:hover {
+    @apply text-link-color/75;
+  }
+
+  h1 {
+    @apply h-fit self-center text-center text-lg font-[600];
+  }
+
+  h2 {
+    @apply h-fit self-center text-center text-lg font-[500];
+  }
+
+  code {
+    @apply inline-flex flex-row place-content-center justify-center gap-3 rounded-sm bg-zinc-200 px-1 py-0;
+  }
+  .dark code {
+    @apply bg-zinc-800;
+  }
+
+  ul {
+    @apply mb-4 ml-2 list-inside list-disc;
+  }
+  ol {
+    @apply mb-4 ml-2 list-inside list-decimal;
+  }
+  ol li::marker,
+  ul li::marker {
+    @apply text-ui-tertiary;
+  }
+
+  p {
+    @apply h-fit w-fit;
+  }
+
+  .modal {
+    @apply bg-ui-secondary rounded-md p-5;
+  }
+}

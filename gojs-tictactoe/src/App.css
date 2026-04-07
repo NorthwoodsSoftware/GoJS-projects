@@ -1,0 +1,41 @@
+#root {
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+
+  --margin-bottom: 50px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'game howto'
+    'diagram diagram';
+  grid-template-columns: auto minmax(200px, 1fr);
+  grid-template-rows: auto 1fr; /* first row fits content, second row takes remaining space */
+  height: calc(100vh - var(--margin-bottom));
+  column-gap: 1rem;
+  row-gap: 1rem;
+}
+
+.grid-container > :nth-child(1) {
+  grid-area: game;
+}
+.grid-container > :nth-child(2) {
+  grid-area: howto;
+}
+.grid-container > :nth-child(3) {
+  grid-area: diagram;
+}
+
+@media (max-width: 700px) {
+  .grid-container {
+    grid-template-areas:
+      'game'
+      'diagram'
+      'howto';
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    height: calc(100vh + 214.66px);
+  }
+}
