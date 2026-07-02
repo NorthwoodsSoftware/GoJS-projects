@@ -79,13 +79,13 @@
     // setup grids
     const units = 30;
     const size = 5000;
-    const divisions = size/units;
+    const divisions = size / units;
 
     const gridXY = new THREE.GridHelper(size, divisions);
     gridXY.material.color.set('green');
-    gridXY.rotation.x=Math.PI/2;
-    gridXY.position.x += units/3;
-    gridXY.position.y -= units/3;
+    gridXY.rotation.x = Math.PI / 2;
+    gridXY.position.x += units / 3;
+    gridXY.position.y -= units / 3;
 
     gridXY.material.opacity = 0.2;
     gridXY.material.transparent = true;
@@ -118,11 +118,7 @@
     currentSceneGroup.add(cube);
 
     // add object outline
-    const outlineGeometry = new THREE.BoxGeometry(
-      n.size[0],
-      n.size[1],
-      n.size[2],
-    );
+    const outlineGeometry = new THREE.BoxGeometry(n.size[0], n.size[1], n.size[2]);
     const edges = new THREE.EdgesGeometry(outlineGeometry);
 
     const lineGeometry = new LineSegmentsGeometry().setPositions(
@@ -130,7 +126,7 @@
     );
     const lineMaterial = new LineMaterial({
       color: outlineColor,
-      linewidth: outlineThickness,
+      linewidth: outlineThickness
     });
     lineMaterial.resolution.set(outerDiv.clientWidth, outerDiv.clientHeight);
     const outline = new LineSegments2(lineGeometry, lineMaterial);
@@ -189,8 +185,15 @@
     if (model) {
       populateScene(model);
 
-      const listenProps = new Set(['loc', 'size', 'color', 'nodeDataArray', 'FinishedUndo', 'FinishedRedo']);
-      model.addChangedListener((e) => {
+      const listenProps = new Set([
+        'loc',
+        'size',
+        'color',
+        'nodeDataArray',
+        'FinishedUndo',
+        'FinishedRedo'
+      ]);
+      model.addChangedListener(e => {
         const prop = e.propertyName as string;
         const data = e.object as NodeData;
         if (!listenProps.has(prop) || !data) return;
@@ -243,11 +246,11 @@
       if (event.button !== 0) return; // left click only
       if (!downEvent) return;
       // ignore click and drag
-      if ((event.x - downEvent.x)**2 + (event.y - downEvent.y)**2 > 4) return;
+      if ((event.x - downEvent.x) ** 2 + (event.y - downEvent.y) ** 2 > 4) return;
 
       const pointer = new THREE.Vector2();
-      pointer.x = ( (event.clientX - outerDiv.offsetLeft) / outerDiv.clientWidth ) * 2 - 1;
-	    pointer.y = - ( (event.clientY - outerDiv.offsetTop) / outerDiv.clientHeight ) * 2 + 1;
+      pointer.x = ((event.clientX - outerDiv.offsetLeft) / outerDiv.clientWidth) * 2 - 1;
+      pointer.y = -((event.clientY - outerDiv.offsetTop) / outerDiv.clientHeight) * 2 + 1;
 
       const raycaster = new THREE.Raycaster();
       raycaster.setFromCamera(pointer, camera);

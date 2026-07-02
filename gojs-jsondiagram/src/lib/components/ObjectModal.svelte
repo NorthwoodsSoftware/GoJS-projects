@@ -19,7 +19,7 @@
 
   let { openModal = $bindable(), onClose }: Props = $props();
 
-  // let openSubModal: Function;
+  let openBaseModal: Function = $state(() => {}); // opens the base Modal used by this component
   let bodyDiv: HTMLDivElement;
 
   let JSONPathDiv: HTMLDivElement;
@@ -39,7 +39,7 @@
     return t;
   });
 
-  let object: PairList | null = $state(null);
+  let targetPairList: PairList | null = $state(null);
 
   let isArray: boolean = $state(false);
 
@@ -67,20 +67,23 @@
   }
 
   onMount(() => {
+    // set/return the function to open this modal
     openModal = (obj: DataManager | PairList, keys: KeyArray) => {
-      if (obj instanceof DataManager) object = obj.data;
-      else object = obj;
+      if (obj instanceof DataManager) targetPairList = obj.data;
+      else targetPairList = obj;
       objectKeys = keys;
 
-      isArray = object?.isArray ?? false;
+      // check if this is an array or object for the conversion button
+      isArray = targetPairList?.isArray ?? false;
 
+      // dynamically mount the ObjectEditor for the current target PairList
       [...bodyDiv.children].forEach(c => c.remove());
       mount(ObjectEditor, {
         target: bodyDiv,
-        props: { pairList: object }
+        props: { pairList: targetPairList }
       });
 
-      openSubModal();
+      openBaseModal();
 
       // when scroll bar on Path, add height to compensate
       const agent = navigator.userAgent.toLowerCase();
@@ -99,23 +102,23 @@
 
 <Modal
   ID="objectEditor"
-  bind:openModal
+  bind:openModal={openBaseModal}
   onClose={() => {
-    onClose(object);
+    onClose(targetPairList);
   }}
 >
   {#snippet header()}
     <pre>{modalTitle}</pre>
     <ButtonPopup
       onClick={() => {
-        if (object) {
-          object.isArray = !object.isArray;
-          isArray = object?.isArray ?? false;
+        if (targetPairList) {
+          targetPairList.isArray = !targetPairList.isArray;
+          isArray = targetPairList?.isArray ?? false;
 
           [...bodyDiv.children].forEach(c => c.remove());
           mount(ObjectEditor, {
             target: bodyDiv,
-            props: { pairList: object }
+            props: { pairList: targetPairList }
           });
         }
       }}

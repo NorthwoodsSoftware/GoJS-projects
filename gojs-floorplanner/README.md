@@ -9,30 +9,23 @@ This GoJS Floorplanner sample demonstrates the <a
     target="_blank">GoJS</a> diagramming library used in a simple Svelte app. The demo contains:
 
 <ul>
-  <li>
-    A custom Diagram class, called Floorplan, which attempts to determine rooms and compute
-    their sizes based on the walls in the diagram.
-  </li>
-  <li>A Palette in a component to drag and drop furniture items onto the main Diagram.</li>
-  <li>A Node Information box that updates based on the current selection</li>
-  <li>
-    An Overview in a component to view a mini-map of the Floorplan Diagram. This is chiefly to
-    demonstrate passing the Diagram to another component.
-  </li>
+  <li>A Diagram component that allows users to build and edit a floorplan model</li>
+  <li>A Palette component to drag and drop furniture items onto the main Diagram.</li>
+  <li>A floor information section that live-updates data about selected items and data about the whole floorplan</li>
+  <li>A model representation of the floorplan saved to JSON</li>
   <li>
     Several other customizations specific to floor planning:
     <ol>
-      <li>A custom tool to build new wall nodes and another one to reshape them.</li>
-      <li>Drag computation functions for window and doors, to keep them inside walls.</li>
-      <li>Selection adornments to visualize the size of windows, doors, and walls.</li>
+      <li>A custom tool to build walls, room dividers, and measurements by clicking and dragging on the diagram</li>
+      <li>A custom tool for moving and resizing windows and doors that snap automatically to walls.</li>
+      <li>Selection adornments to visualize and resize windows, doors, and walls.</li>
+      <li>Menu options to create rooms, convert between feet and meters, and save/load the diagram,</li>
     </ol>
   </li>
 </ul>
 
-Because of this sample's complexity, it is meant as a demonstration of several GoJS features
-and a demonstration of GoJS alongside Svelte, rather than a starting point for your own
-project. We are happy to help you begin a proof-of-concept for your own project, regardless of
-your needs. <a href="https://nwoods.com/support.html" target="_blank">Contact us</a> for more information.
+This project is an example of implementing GoJS into a Svelte application, and its structure can be 
+used as a starting point for your own projects and applications.
 
 ## Installation
 

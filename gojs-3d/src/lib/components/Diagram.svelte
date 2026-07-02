@@ -25,7 +25,7 @@
 
     // take all the axes and filter out axis1 and axis2 to get the remaining axis
     // for zOrder in the diagram
-    const zOrderAxis = ['X', 'Y', 'Z'].filter((v) => v != axis1 && v != axis2)[0] as Axis;
+    const zOrderAxis = ['X', 'Y', 'Z'].filter(v => v != axis1 && v != axis2)[0] as Axis;
 
     const node = new go.Node({ resizable: true, resizeObjectName: 'SHAPE' })
       .bindTwoWay(
@@ -48,8 +48,8 @@
       .bind('zOrder', '', (data, obj) => {
         // zOrder the Nodes by depth axis from 3d view
         const i = coordToAxis[zOrderAxis];
-        const pos = data.loc[i] * (zOrderAxis === 'Z' ? -1 : 1); // z axis inverted
-        if (zOrderAxis === 'Z') return pos; // z pos is relative to the top
+        const pos = data.loc[i] * (zOrderAxis !== 'Y' ? -1 : 1); // z and x axis inverted
+        if (zOrderAxis !== 'Y') return pos; // z and x pos is relative to the top/left
 
         const size = obj.data.size[i];
         return pos + size;
@@ -59,7 +59,7 @@
           .bindTwoWay(
             'desiredSize',
             'size',
-            (size) => {
+            size => {
               return new go.Size(size[coordToAxis[axis1]], size[coordToAxis[axis2]]);
             },
             (size: go.Size, data) => {
@@ -73,7 +73,7 @@
       );
 
     myDiagram = new go.Diagram(diagramDiv, {
-      ChangedSelection: (e) => {
+      ChangedSelection: e => {
         selection = e.subject.first()?.key ?? null;
       },
       'animationManager.isEnabled': false,

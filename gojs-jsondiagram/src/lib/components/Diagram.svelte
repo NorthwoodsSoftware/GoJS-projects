@@ -796,6 +796,7 @@
         scrollMode: go.ScrollMode.Infinite,
 
         // don't allow modifying the diagram
+        allowCopy: false,
         allowClipboard: false,
         allowDelete: false,
         allowLink: false,

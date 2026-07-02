@@ -29,6 +29,10 @@
     height: 100%;
   }
 
+  h1 {
+    @apply h-fit self-center text-center text-lg font-[600];
+  }
+
   a {
     @apply text-green-700 underline;
   }

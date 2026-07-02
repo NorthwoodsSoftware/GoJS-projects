@@ -58,8 +58,8 @@
   const deleteSVG =
     'M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z';
 
-  let rowItemDiv: HTMLDivElement | null = $state(null);
-  let svgPath: SVGPathElement = $state(null);
+  let rowItemDiv: HTMLDivElement | null = null;
+  let svgPath: SVGPathElement | null = $state(null); // this must be a state rune since it is defined inside an if block
   let subEditor: HTMLDivElement | null = null;
 
   let keyInput: HTMLInputElement;
@@ -138,6 +138,8 @@
 
   function expandButton(skipAnimation: boolean = false) {
     if (!rowItemDiv) throw new Error('rowItemDiv is undefined');
+    if (!svgPath) throw new Error('svgPath is undefined');
+
     if (svgPath.getAttribute('d') === collapseSVG) {
       // collapse
       isCollapsed = true;

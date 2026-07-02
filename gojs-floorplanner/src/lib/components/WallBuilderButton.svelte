@@ -10,7 +10,7 @@
   <div class="rounded border-sky-200 group-hover:border-2 group-hover:-translate-0.5">
     <button
       onclick={func}
-      class="{shouldHide ? 'hidden' : ''} px-2 py-1 rounded border bg-white text-black"
+      class="{shouldHide ? 'hidden' : ''} px-2 py-1 rounded border border-fp-border dark:border-gray-700 bg-white text-black"
       style={hStr}
     >
       {title}

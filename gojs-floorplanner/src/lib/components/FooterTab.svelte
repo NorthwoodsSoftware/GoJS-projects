@@ -5,8 +5,8 @@
 
 <div>
   <button 
-    class="{ pageSelected === id ? 'dark:bg-fp-bg-dark' : 'hover:bg-fp-bg bg-gray-100 dark:bg-fp-bg-darkened dark:hover:bg-fp-bg-darkish'} 
-      h-8 p-2 border border-t-0 border-l-0 rounded-t bg-fp-bg dark:text-white border-b-0"
+    class="{ pageSelected === id ? 'dark:bg-fp-bg-dark' : 'hover:bg-fp-bg bg-fp-bg-lightish dark:bg-fp-bg-darkened dark:hover:bg-fp-bg-darkish'} 
+      h-8 p-2 border border-fp-border dark:border-gray-700 dark:border-t-0 border-l-0 rounded-t bg-fp-bg dark:text-white border-b-0"
     onclick={() => pageSelected = id}
   >
     <p class="-mt-1">{text}</p>
@@ -15,6 +15,6 @@
   while allowing the selected tab to have no visual border with the page -->
   <div 
     class="w-full h-[1px] border-r
-      { pageSelected === id ? 'bg-fp-bg dark:bg-fp-bg-dark' : 'bg-gray-200 dark:bg-gray-700' }">
+      { pageSelected === id ? 'bg-fp-bg dark:bg-fp-bg-dark' : 'bg-fp-border dark:bg-gray-700' }">
   </div>
 </div>

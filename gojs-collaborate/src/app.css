@@ -1,0 +1,145 @@
+@import 'tailwindcss';
+
+/* Tailwind dark mode based on dark class */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* tailwind light theme colors */
+  --ui-text: rgba(0, 0, 0, 0.87);
+  --ui-primary: #e7e7e7;
+  --ui-secondary: #ffffff;
+  --ui-tertiary: #b7d478;
+  --ui-quaternary: #93ab61;
+
+  --ui2-text: rgba(255, 255, 255, 0.87);
+  --ui2-primary: #424242;
+  --ui2-secondary: #505050;
+  --ui2-tertiary: #93ab61;
+  --ui2-quaternary: #b2cc75;
+
+  --link-color: var(--color-green-600);
+  --link-color2: var(--color-green-900);
+
+  /* page css */
+  --svg-size: 32px;
+
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  background-color: var(--color-ui-primary);
+  color: var(--ui-text);
+  background-color: var(--ui-primary);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dark {
+  /* tailwind dark theme colors */
+  --ui-text: rgba(255, 255, 255, 0.87);
+  --ui-primary: #1e1e1e;
+  --ui-secondary: #3a3a3a;
+  --ui-tertiary: #93ab61;
+  --ui-quaternary: #b2cc75;
+
+  --link-color: var(--color-green-300);
+  --link-color2: var(--color-green-600);
+
+  --ui2-text: rgba(0, 0, 0, 0.87);
+  --ui2-primary: #ffffff;
+  --ui2-secondary: #e7e7e7;
+  --ui2-tertiary: #b7d478;
+  --ui2-quaternary: #93ab61;
+}
+
+/* define tailwind color variables */
+@theme inline {
+  --color-ui-text: var(--ui-text);
+  --color-ui-primary: var(--ui-primary);
+  --color-ui-secondary: var(--ui-secondary);
+  --color-ui-tertiary: var(--ui-tertiary);
+  --color-ui-quaternary: var(--ui-quaternary);
+
+  --color-link-color: var(--link-color);
+  --color-link-color2: var(--link-color2);
+
+  --color-ui2-text: var(--ui2-text);
+  --color-ui2-primary: var(--ui2-primary);
+  --color-ui2-secondary: var(--ui2-secondary);
+  --color-ui2-tertiary: var(--ui2-tertiary);
+  --color-ui2-quaternary: var(--ui2-quaternary);
+}
+
+body {
+  @apply m-0 flex min-h-[100vh] place-items-center;
+}
+
+/*
+  default css for these elements. Allows these props to be easily overridden
+ */
+@layer base {
+  a {
+    @apply text-link-color underline;
+  }
+
+  a:hover {
+    @apply text-link-color2;
+  }
+
+  h1 {
+    @apply h-fit self-center text-center text-lg font-[600];
+  }
+
+  h2 {
+    @apply h-fit self-center text-center text-lg font-[500];
+  }
+
+  code {
+    @apply inline place-content-center justify-center rounded-sm bg-zinc-200 px-1 py-0.75 text-nowrap;
+  }
+  .dark code {
+    @apply bg-zinc-800;
+  }
+
+  ul {
+    @apply mb-4 ml-2 list-inside list-disc;
+  }
+  ol {
+    @apply mb-4 ml-2 list-inside list-decimal;
+  }
+  ol li::marker,
+  ul li::marker {
+    @apply text-ui-quaternary;
+  }
+
+  p {
+    @apply h-fit w-fit;
+  }
+
+  .modal {
+    @apply bg-ui-secondary m-2 rounded-md p-5;
+  }
+
+  button {
+    @apply h-fit w-fit cursor-pointer rounded-md p-1 hover:bg-[rgba(0,0,0,0.15)] dark:hover:bg-[rgba(255,255,255,0.15)];
+  }
+
+  /* allow button style to be applied to other elements */
+  .button1 {
+    @apply h-fit w-fit cursor-pointer rounded-md p-1 hover:bg-[rgba(0,0,0,0.15)] dark:hover:bg-[rgba(255,255,255,0.15)];
+  }
+
+  /* button with partially transparent black/white background */
+  .button2 {
+    @apply h-fit w-fit cursor-pointer rounded-md bg-[rgba(0,0,0,0.15)] p-1 hover:bg-[rgba(0,0,0,0.2775)] dark:bg-[rgba(255,255,255,0.15)] dark:hover:bg-[rgba(255,255,255,0.2775)];
+  }
+
+  /* button with tertiary colored background, quaternary on hover */
+  .button3 {
+    @apply bg-ui-tertiary hover:bg-ui-quaternary h-fit w-fit cursor-pointer rounded-md p-1;
+  }
+}

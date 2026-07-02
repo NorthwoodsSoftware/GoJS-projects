@@ -423,7 +423,7 @@
     <div id="loading" class="mx-1 flex flex-row flex-nowrap items-center gap-1 text-xs">
       <img
         class="spinner dark:invert"
-        src="/images/circle-notch.png"
+        src="images/circle-notch.png"
         style="width: 16px; height: 16px"
         alt=""
       />

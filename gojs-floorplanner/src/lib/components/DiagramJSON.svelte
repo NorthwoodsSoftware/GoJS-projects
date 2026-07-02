@@ -139,6 +139,6 @@
 <div class="h-full w-full p-2 flex flex-col">
   <p>Diagram Model saved in JSON format:</p>
   <div class="flex-1">
-    <textarea id="exampleModel" class="w-full h-full border rounded p-1 resize-none dark:bg-fp-bg-darkened"  bind:value={model}></textarea>
+    <textarea id="exampleModel" class="w-full h-full border border-fp-border dark:border-gray-700 rounded p-1 resize-none dark:bg-fp-bg-darkened"  bind:value={model}></textarea>
   </div>
 </div>

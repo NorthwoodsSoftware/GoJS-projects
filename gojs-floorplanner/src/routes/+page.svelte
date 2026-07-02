@@ -242,17 +242,27 @@
   screenshot={'floorplanapp.png'}
   applicationCategory={'DeveloperApplication'}
 />
-<div class="bg-fp-bg-lightish dark:bg-fp-bg-darkened mx-3 flex h-full flex-col overflow-hidden">
+<div class="bg-fp-bg-lightish dark:bg-fp-bg-darkened mx-3 flex h-full flex-col overflow-hidden text-fp-light-accent">
   <div
-    class="bg-fp-bg dark:from-fp-bg-dark dark:to-fp-bg-darkened mt-1 mb-1 rounded border dark:bg-gradient-to-t"
+    class="bg-fp-bg dark:from-fp-bg-dark dark:to-fp-bg-darkened relative z-10 mt-1 mb-1 rounded border border-fp-border dark:border-gray-700 dark:bg-gradient-to-t"
   >
-    <div class="text-fp-bg-lightish flex w-max rounded-t rounded-br shadow dark:shadow-none">
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div class="absolute inset-0 transform-gpu blur-3xl">
+        <div
+          style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
+          class="absolute top-1/2 left-1/2 aspect-1155/678 w-200 -translate-x-1/2 -translate-y-1/2 bg-linear-to-tr from-cyan-400 to-sky-800 opacity-30 sm:w-288.75">
+        </div>
+      </div>
+    </div>
+    <div class="flex w-max rounded-t rounded-br">
       <div class="group relative">
         <HeaderMenuTab title="File" bind:headerTabClicked bind:element={fileTab} />
         <div
           class="absolute left-0 {headerTabClicked === 'File'
             ? 'block'
-            : 'hidden'} bg-fp-bg z-10 min-w-[120px] rounded-b border shadow"
+            : 'hidden'} bg-fp-bg z-10 min-w-[120px] rounded-b border border-fp-border dark:border-gray-700 shadow"
         >
           <HeaderMenuButton
             title={viewing === 'example' ? 'Update JSON' : 'Save'}
@@ -269,7 +279,7 @@
         <div
           class="absolute left-0 {headerTabClicked === 'Edit'
             ? 'block'
-            : 'hidden'} bg-fp-bg z-10 min-w-[120px] rounded-b border shadow"
+            : 'hidden'} bg-fp-bg z-10 min-w-[120px] rounded-b border border-fp-border dark:border-gray-700 shadow"
         >
           <HeaderMenuButton title="Undo" func={() => handleEdit(4)} />
           <HeaderMenuButton title="Redo" func={() => handleEdit(5)} />
@@ -287,7 +297,7 @@
         <div
           class="absolute left-0 {headerTabClicked === 'Options'
             ? 'block'
-            : 'hidden'} bg-fp-bg z-10 min-w-[120px] rounded-b border shadow"
+            : 'hidden'} bg-fp-bg z-10 min-w-[120px] rounded-b border border-fp-border dark:border-gray-700 shadow"
         >
           <HeaderMenuButton
             title={$useFeet ? 'Use Meters' : 'Use Feet'}
@@ -312,7 +322,7 @@
         <div
           class="absolute left-0 {headerTabClicked === 'View'
             ? 'block'
-            : 'hidden'} bg-fp-bg z-10 min-w-[120px] rounded-b border shadow"
+            : 'hidden'} bg-fp-bg z-10 min-w-[120px] rounded-b border border-fp-border dark:border-gray-700 shadow"
         >
           <HeaderMenuButton title="Reset Viewport" func={() => handleView(0)} />
           <HeaderMenuButton
@@ -333,15 +343,15 @@
     <button
       type="button"
       aria-label="help"
-      class="text-fp-bg-lightish fixed right-10 flex h-8 w-8 items-center justify-center rounded-full border-1
-        border-gray-200 text-xl shadow hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:shadow-none
+      class="text-fp-light-accent fixed right-10 flex h-8 w-8 items-center justify-center rounded-full border-1
+        border-fp-border text-xl shadow hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:shadow-none
         dark:hover:bg-slate-800"
       onclick={() => (showHelpPage = true)}
     >
       ?
     </button>
     <div class="flex w-full flex-row rounded-b py-2 pl-1.5">
-      <h1 class="text-fp-bg-lightish mr-3 text-center text-2xl font-bold dark:text-white">
+      <h1 class="text-fp-light-accent mr-3 text-center text-2xl font-bold dark:text-white">
         GoJS Floorplanner with
       </h1>
       <img src="images/Svelte_Logo.svg" alt="Svelte" class="my-auto h-8 w-8" />
@@ -357,14 +367,14 @@
           <Palette />
         {:else}
           <button
-            class="bg-fp-beige dark:bg-fp-bg-dark h-full w-full rounded border"
+            class="bg-fp-beige dark:bg-fp-bg-dark h-full w-full rounded border border-fp-border dark:border-gray-700"
             onclick={() => (paletteCollapsed = !paletteCollapsed)}
             aria-label="open-palette"
           >
           </button>
         {/if}
       </div>
-      <div class="relative {paletteCollapsed ? 'ml-1' : 'ml-2'} w-full rounded border">
+      <div class="relative {paletteCollapsed ? 'ml-1' : 'ml-2'} w-full rounded border border-fp-border dark:border-gray-700">
         <div class="bg-fp-beige absolute z-0 h-full w-full overflow-hidden rounded">
           <Diagram
             {resizing}
@@ -405,7 +415,7 @@
     <!-- Footer section -->
     {#if footerCollapsed}
       <button
-        class="bg-fp-bg dark:bg-fp-bg-dark mt-1 mb-1 h-4 w-full rounded border"
+        class="bg-fp-bg dark:bg-fp-bg-dark mt-1 mb-1 h-4 w-full rounded border border-fp-border dark:border-gray-700"
         onclick={() => (footerCollapsed = !footerCollapsed)}
         aria-label="open-footer"
       >
@@ -414,18 +424,29 @@
       <DivResizeHandle div={infoDiv} name="infoBar" bind:resizing bind:infoBarHeight />
     {/if}
     <div
-      class="bg-fp-bg-lightish dark:from-fp-bg-dark dark:to-fp-bg-darkened rounded dark:border dark:bg-gradient-to-r
+      class="bg-fp-bg-lightish dark:from-fp-bg-dark dark:to-fp-bg-darkened relative rounded border border-fp-border dark:border-gray-700 dark:bg-gradient-to-r
       {footerCollapsed ? 'hidden' : 'flex flex-col'} z-10"
       style={'height: ' + String(infoBarHeight) + 'px'}
       bind:this={infoDiv}
     >
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded">
+        <div
+          class="absolute inset-0 transform-gpu opacity-50 blur-2xl dark:opacity-40"
+          style="background:
+            radial-gradient(55% 140% at 50% 118%, rgba(34, 211, 238, 0.55), transparent 70%),
+            radial-gradient(48% 125% at 6% -18%, rgba(3, 105, 161, 0.45), transparent 70%),
+            radial-gradient(48% 125% at 94% -18%, rgba(3, 105, 161, 0.45), transparent 70%);">
+        </div>
+      </div>
       <div class="bg-fp-bg-lightish dark:bg-fp-bg-dark z-10 flex w-max rounded-t">
         <FooterTab text={'Intro'} id={'intro'} bind:pageSelected />
         <FooterTab text={'Model'} id={'model'} bind:pageSelected />
         <FooterTab text={'Floor Info'} id={'floorInfo'} bind:pageSelected />
       </div>
       <div
-        class="bg-fp-bg dark:bg-fp-bg-dark dark:text-fp-bg -mt-[1px] flex-1 grow-1 rounded-b border-t"
+        class="bg-fp-bg dark:bg-fp-bg-dark dark:text-fp-bg -mt-[1px] flex-1 grow-1 rounded-b border-t border-fp-border dark:border-gray-700"
       >
         <div class="h-full w-full" style="display: {pageSelected === 'model' ? '' : 'none'};">
           <DiagramJson bind:model bind:exampleModel />
@@ -460,13 +481,13 @@
     bind:this={helpWindow}
   >
     <div
-      class="bg-fp-bg dark:from-fp-bg-dark dark:to-fp-bg-darkened flex h-max w-full justify-between rounded-t border dark:bg-gradient-to-t"
+      class="bg-fp-bg dark:from-fp-bg-dark dark:to-fp-bg-darkened flex h-max w-full justify-between rounded-t border-b border-fp-border dark:border-gray-700 dark:bg-gradient-to-t"
     >
       <h2 class="m-3 text-2xl">Guide:</h2>
       <button
         type="button"
         aria-label="Exit Help Button"
-        class="text-fp-bg-lightish m-3 hover:text-slate-500 dark:text-white dark:hover:text-gray-200"
+        class="m-3 hover:text-gray-500 dark:text-white dark:hover:text-gray-200"
         onclick={() => (showHelpPage = false)}
       >
         <svg

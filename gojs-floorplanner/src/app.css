@@ -7,10 +7,12 @@
   --color-fp-green: #6cc35b;
   --color-fp-beige: #fbfcf9;
   --color-fp-bg: #fbfcf9;
-  --color-fp-bg-lightish: #2a4861;
+  --color-fp-bg-lightish: #ffffff;
+  --color-fp-light-accent: #131211;
   --color-fp-bg-dark: #0f172a;
   --color-fp-bg-darkened: #020617;
   --color-fp-bg-darkish: #42557a;
+  --color-fp-border: #13121160;
 }
 
 /*

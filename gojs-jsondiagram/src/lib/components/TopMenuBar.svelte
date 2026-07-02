@@ -9,7 +9,6 @@
   import { type DataManager } from '$lib/dataManager.svelte';
   import Modal from '$lib/components/Modal.svelte';
   import IconParagraph from './IconParagraph.svelte';
-  import type go from 'gojs';
   import type { Unsubscriber } from 'svelte/store';
 
   interface Props {
@@ -33,12 +32,6 @@
     import: 'default'
   });
 
-  const fnameMap: go.ObjectData = {
-    '64KB min': 1,
-    '1MB min': 3,
-    '5MB min': 4
-  };
-
   const dataButtons: Promise<{ content: string; action: Function }[]> = Promise.all(
     Object.entries(files).map(async ([path, importer]) => {
       const url = (await importer()) as string;
@@ -50,16 +43,12 @@
     })
   ).then(buttons =>
     buttons.sort((a, b) => {
-      // put all the min files after the rest and sort by file size
+      // put any min files after the rest
       if (a.content.includes('min') && !b.content.includes('min')) return 1;
       else if (!a.content.includes('min') && b.content.includes('min')) return -1;
-      else if (a.content.includes('min') && b.content.includes('min')) {
-        const valueA = fnameMap?.[a.content];
-        const valueB = fnameMap?.[b.content];
-
-        if (!valueA || !valueB) return a.content.localeCompare(b.content);
-        else return valueA - valueB;
-      } else return a.content.localeCompare(b.content);
+      else {
+        return a.content.localeCompare(b.content);
+      }
     })
   );
 
@@ -74,6 +63,7 @@
   function loadJSON() {
     const input = document.createElement('input');
     input.type = 'file';
+    input.accept = 'application/json'; // only show json files by default
     input.onchange = async (ev: Event) => {
       // if tabs are ever added then when multiple files are selected here open all of them
 
@@ -125,6 +115,7 @@
       svg.outerHTML = theme === 'light' ? sunSVG : moonSVG;
     });
 
+    // prevent leaving the page when there are unsaved changes
     window.addEventListener('beforeunload', ev => {
       if (lastSavedTime.getTime() >= dataManager.getLastWriteTime().getTime()) return;
       ev.preventDefault();

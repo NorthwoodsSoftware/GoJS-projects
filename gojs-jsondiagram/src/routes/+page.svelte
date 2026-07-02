@@ -1,11 +1,11 @@
 <script lang="ts">
+  import MetaTags from '$lib/components/MetaTags.svelte';
   import Diagram from '$lib/components/Diagram.svelte';
   import JSONInfo from '$lib/components/JSONInfo.svelte';
   import TopMenuBar from '$lib/components/TopMenuBar.svelte';
   import ObjectModal from '$lib/components/ObjectModal.svelte';
   import { DataManager } from '$lib/dataManager.svelte';
   import type { KeyArray } from '$lib/types';
-  import { onMount } from 'svelte';
 
   const dataManager = new DataManager();
   let selectedKeys: Array<string | number> | null = [];
@@ -37,6 +37,13 @@
 <link
   href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap"
   rel="stylesheet"
+/>
+
+<MetaTags
+  title="JSON Diagram Editor Online | Visualize with GoJS in Real-Time"
+  description="Visualize and edit your JSON data with a GoJS diagram along side a rich text editor."
+  projectTitle="gojs-jsondiagram"
+  screenshot="jsondiagram.png"
 />
 
 <ObjectModal bind:openModal onClose={closeModal} />

@@ -148,7 +148,7 @@
 </script>
 
 <div class="h-full overflow-hidden">
-  <div class="h-full w-full rounded border px-1 py-4">
+  <div class="h-full w-full rounded border border-fp-border dark:border-gray-700 px-1 py-4">
     <div class="bg-fp-beige h-full w-full" bind:this={diagramDiv}></div>
   </div>
 </div>

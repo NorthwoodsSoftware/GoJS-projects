@@ -1,7 +1,7 @@
 <script lang="ts">
   // Contains the GoJS Diagram and its initialization code as well as data updating for the floor info page
   // and functions for saving, loading, and printing
-  import go, { ScrollMode } from 'gojs';
+  import go from 'gojs';
   import { useFeet, showRoomAreas, hideDividers, hideMeasurements } from '$lib/stores/stores';
   import { onMount } from 'svelte';
   import { WallBuilderTool } from '$lib/gojs/WallBuilderTool';
@@ -114,7 +114,7 @@
         'undoManager.isEnabled': true,
         'animationManager.isEnabled': false,
         'grid.visible': true,
-        scrollMode: ScrollMode.Infinite,
+        scrollMode: go.ScrollMode.Infinite,
         'toolManager.hoverDelay': 500,
         grid: FPTemplates.meterGrid,
         initialAutoScale: go.AutoScale.Uniform,

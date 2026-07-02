@@ -4,8 +4,8 @@
   let { data, title } = $props();
 </script>
 
-<div class="h-max max-h-[calc(100%-5px)] min-h-20 w-50 md:70 lg:w-100 border shadow rounded flex flex-col">
-  <h2 class="border-b text-center dark:bg-fp-bg-darkish rounded-t">{title}</h2>
+<div class="h-max max-h-[calc(100%-5px)] min-h-20 w-50 md:70 lg:w-100 border border-fp-border dark:border-gray-700 shadow rounded flex flex-col">
+  <h2 class="border-b border-fp-border dark:border-gray-700 text-center dark:bg-fp-bg-darkish rounded-t">{title}</h2>
   <div class="py-2 flex-1 overflow-auto dark:bg-fp-bg-darkened">
     <p class="{!data ? 'hidden' : ''} text-center">
       {#if data}

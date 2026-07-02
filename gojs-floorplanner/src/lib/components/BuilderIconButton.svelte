@@ -23,7 +23,7 @@
 
 <div class="relative group">
   <div class="rounded mb-1 {buildType === type && isBuildingWalls ? 'border-2 border-sky-200' : ''}">
-    <div class="bg-white border rounded {!isBuildingWalls ? 'hidden' : ''} {buildType === type ? '' : 'hover:bg-sky-200'}">
+    <div class="bg-white border border-fp-border dark:border-gray-700 rounded {!isBuildingWalls ? 'hidden' : ''} {buildType === type ? '' : 'hover:bg-sky-200'}">
       <button
         onclick={func}
         aria-label={"build-" + type}

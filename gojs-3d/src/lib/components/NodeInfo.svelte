@@ -25,28 +25,34 @@
   function propertyChanged(event: Event, data: go.ObjectData, prop: string) {
     if (!model) return;
 
-    model.startTransaction("infoChange");
-    model.setDataProperty(data, prop, (event?.target as HTMLInputElement).value);
-    model.commitTransaction("infoChange");
+    model.commit(() => {
+      model.setDataProperty(data, prop, (event?.target as HTMLInputElement).value);
+    }, 'infoChange');
   }
 
   // update model data of an element in an array
   function propertyChangedArray(event: Event, data: go.ObjectData, prop: string, index: number) {
     if (!model) return;
 
-    model.startTransaction("infoChange");
+    model.commit(() => {
+      const newVal = (event?.target as HTMLInputElement).value;
+      const arr = [...data[prop]];
+      arr[index] = typeof arr[index] == 'number' ? parseFloat(newVal) : newVal;
 
-    const newVal = (event?.target as HTMLInputElement).value;
-    const arr = [... data[prop]];
-    arr[index] = typeof arr[index] == 'number' ? parseFloat(newVal) : newVal;
-
-    model.setDataProperty(data, prop, arr);
-    model.commitTransaction("infoChange");
+      model.setDataProperty(data, prop, arr);
+    }, 'infoChange');
   }
 
   onMount(() => {
     // console.log(model);
-    const listenProps = new Set(['loc', 'size', 'color', 'nodeDataArray', 'FinishedUndo', 'FinishedRedo']);
+    const listenProps = new Set([
+      'loc',
+      'size',
+      'color',
+      'nodeDataArray',
+      'FinishedUndo',
+      'FinishedRedo'
+    ]);
 
     model?.addChangedListener((e: go.ChangedEvent) => {
       const prop = e.propertyName as string;
@@ -66,21 +72,27 @@
 </script>
 
 <div class="flex h-full flex-col">
-  <div class="border-b-2 bg-blue-300 border-blue-400 px-1 font-mono text-xs py-2 text-center">Selected Node Information</div>
+  <div class="border-b-2 border-blue-400 bg-blue-300 px-1 py-2 text-center font-mono text-xs">
+    Selected Node Information
+  </div>
 
   <div class="mx-2 mt-3">
-    <div class="mx-2 font-mono text-sm grid grid-flow-row grid-cols-[auto_1fr] gap-y-5 gap-x-2">
+    <div class="mx-2 grid grid-flow-row grid-cols-[auto_1fr] gap-x-2 gap-y-5 font-mono text-sm">
       {#each selectionEntries as [key, value]}
-        {#if key == "color"}
+        {#if key == 'color'}
           <div>{key}</div>
-          <input {value} onchange={(event) => propertyChanged(event, $selectedData!, key)}/>
-        {:else if (Array.isArray(value)) && (value?.length >= 3)}
+          <input {value} onchange={event => propertyChanged(event, $selectedData!, key)} />
+        {:else if Array.isArray(value) && value?.length >= 3}
           <div>{key}</div>
           <div class="flex flex-wrap gap-1">
             {#each value as v, i}
               <div class="flex items-center">
                 {['X', 'Y', 'Z'][i]}
-                <input class=" ml-1 min-w-[30px]" value={v} onchange={(event) => propertyChangedArray(event, $selectedData!, key, i)}/>
+                <input
+                  class=" ml-1 min-w-[30px]"
+                  value={v}
+                  onchange={event => propertyChangedArray(event, $selectedData!, key, i)}
+                />
               </div>
             {/each}
           </div>
@@ -102,6 +114,6 @@
   }
 
   input:disabled {
-    background-color: rgba(0,0,0,0.15);
+    background-color: rgba(0, 0, 0, 0.15);
   }
 </style>

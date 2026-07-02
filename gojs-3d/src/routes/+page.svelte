@@ -1,4 +1,5 @@
 <script lang="ts">
+  import MetaTags from '$lib/components/MetaTags.svelte';
   import DiagramSet from '$lib/components/DiagramSet.svelte';
   import NodeInfo from '$lib/components/NodeInfo.svelte';
 
@@ -6,21 +7,28 @@
   let model: go.GraphLinksModel;
 </script>
 
+<MetaTags
+  title="GoJS alongside 3D (with Svelte) | GoJS Diagramming Library"
+  description="GoJS and ThreeJS integration demo with synchronized 2D diagrams and a 3D model in Svelte. Three Diagrams are synchronized with the 3d view using one Model. Each of the 3 diagrams represents one of the 3d plane views (top down, side, front)."
+  projectTitle="gojs-3d"
+  screenshot="3d.png"
+/>
+
 <div class="bg-fp-beige mx-3 flex h-full flex-col">
   <h1>GoJS alongside 3D (with Svelte)</h1>
 
   <div class="flex h-full flex-col items-stretch">
     <!-- top -->
-    <div class="flex grow flex-row items-stretch gap-1">
+    <div class="flex h-4/5 flex-row items-stretch gap-1">
       <div class="w-32 bg-blue-200 md:w-48 lg:w-64">
-        <NodeInfo {selection} {model}/>
+        <NodeInfo {selection} {model} />
       </div>
       <div class="grow">
         <DiagramSet bind:selection bind:model></DiagramSet>
       </div>
     </div>
     <!-- footer -->
-    <div class="h-1/4 bg-blue-100 p-3 mt-1">
+    <div class="mt-1 grow bg-blue-100 p-3">
       <p>This sample demonstrates GoJS Diagrams alongside a 3D model made with ThreeJS.</p>
       <p>
         Three separate GoJS Diagrams observe a single model, each showing two of three coordinate
