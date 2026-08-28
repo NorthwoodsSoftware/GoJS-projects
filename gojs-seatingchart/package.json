@@ -13,7 +13,7 @@
     "format": "prettier .  --write"
   },
   "dependencies": {
-    "@nuxt/ui": "^3.3.2",
+    "@nuxt/ui": "^4.8.1",
     "@tailwindcss/vite": "^4.1.12",
     "@vueuse/core": "^13.6.0",
     "gojs": "latest",
