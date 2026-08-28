@@ -30,7 +30,7 @@
     "tailwindcss": "^4.1.12",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.39.1",
-    "vite": "^7.1.2"
+    "vite": "^7.3.6"
   },
   "dependencies": {
     "@sveltejs/vite-plugin-svelte-inspector": "^5.0.0",
